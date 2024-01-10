@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import TimeZoneClock from "./components/TimeZoneClock";
 
 function App() {
-
   const fusosHorarios = [
     "UTC",
     "GMT",
@@ -15,18 +14,30 @@ function App() {
     "Asia/Tokyo",
   ];
 
-  const fusoHorarioLocal = Intl.DateTimeFormat().resolvedOptions().timeZone
-  const [fusosHorariosSelecionados, setFusosHorariosSelecionados] = useState([fusoHorarioLocal])
+  const fusoHorarioLocal = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const [fusosHorariosSelecionados, setFusosHorariosSelecionados] = useState([
+    fusoHorarioLocal,
+  ]);
 
-  console.log(fusosHorariosSelecionados);
+  const adicionarFusoHorario = (e) => {
+    const novoFuso = e.target.value
+    if(!fusosHorariosSelecionados.includes(novoFuso)) {
+      setFusosHorariosSelecionados([...fusosHorariosSelecionados, novoFuso])
+    }
+  }
 
   return (
     <>
       <h1>Relógio Mundial</h1>
-      <select>
+      <select onChange={(e) => adicionarFusoHorario(e)}>
         <option value="" disabled selected>
           Selecione um fuso horário
         </option>
+        {fusosHorarios.map((fuso) => (
+          <option key={fuso} value={fuso}>
+            {fuso}
+          </option>
+        ))}
       </select>
       <div>
         {fusosHorariosSelecionados.map((fuso) => (
