@@ -15,19 +15,20 @@ function App() {
   ];
 
   const fusoHorarioLocal = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const [fusosHorariosSelecionados, setFusosHorariosSelecionados] = useState([
     fusoHorarioLocal,
   ]);
 
   const adicionarFusoHorario = (e) => {
-    const novoFuso = e.target.value
-    if(!fusosHorariosSelecionados.includes(novoFuso)) {
-      setFusosHorariosSelecionados([...fusosHorariosSelecionados, novoFuso])
+    const novoFuso = e.target.value;
+    if (!fusosHorariosSelecionados.includes(novoFuso)) {
+      setFusosHorariosSelecionados([...fusosHorariosSelecionados, novoFuso]);
     }
-  }
+  };
 
   return (
-    <>
+    <div className="container">
       <h1>Relógio Mundial</h1>
       <select onChange={(e) => adicionarFusoHorario(e)}>
         <option value="" disabled selected>
@@ -44,7 +45,7 @@ function App() {
           <TimeZoneClock key={fuso} timeZone={fuso} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
